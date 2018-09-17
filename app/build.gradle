@@ -1,0 +1,121 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        applicationId "android.rezkyauliapratama.com.qlue_project"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        buildConfigField "String", "BASE_URL", localProperties['baseUrl']
+        buildConfigField "String", "TOKEN", localProperties['token']
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+    kotlin {
+        experimental {
+            coroutines "enable"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //noinspection GradleCompatible
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:animated-vector-drawable:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+
+    //anko
+    implementation "org.jetbrains.anko:anko:$rootProject.ankoVersion"
+    implementation "org.jetbrains.anko:anko-coroutines:$rootProject.ankoVersion"
+    implementation "org.jetbrains.anko:anko-sdk15-coroutines:$rootProject.ankoVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+
+    //image-handling
+    implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+
+    //dagger2
+    implementation "com.google.dagger:dagger:$rootProject.dagger2Version"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
+
+    // dagger android
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
+    implementation "com.google.dagger:dagger-android:$rootProject.dagger2Version"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
+
+    //rx
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    implementation "com.jakewharton.rxrelay2:rxrelay:$rootProject.rxRelayVersion"
+
+    //view
+    implementation "com.app.infideap.stylishwidget:stylish-widget:$rootProject.stylishwidgetVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'cardview-v7'
+    }
+
+    //architecture component
+    implementation "android.arch.lifecycle:extensions:$rootProject.arcCompVersion"
+    implementation "android.arch.work:work-runtime:1.0.0-alpha08"
+
+    //test
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.testRunnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
+
+    //networking
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+
+    //log
+    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+
+    //mockito
+    testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$rootProject.mockitoInlineVersion"
+
+    //multidex
+    compile "com.android.support:multidex:1.0.3"
+
+    //map
+    implementation 'com.google.android.gms:play-services-location:10.2.1'
+    implementation 'com.google.android.gms:play-services-maps:10.2.1'
+}

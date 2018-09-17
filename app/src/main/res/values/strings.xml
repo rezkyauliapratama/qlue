@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">qlue-project</string>
+    <string name="gotit" formatted="false">Got it!</string>
+    <string name="permissionrequestmessage" formatted="false">Need to activate several permission in order to use this app</string>
+</resources>
